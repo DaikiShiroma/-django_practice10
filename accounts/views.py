@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from . import forms
 from django.core.exceptions import ValidationError
-
+from .models import UserActivateTokens
 def home(request):
     return render(
         request, 'accounts/home.html' 
@@ -19,5 +19,11 @@ def regist(request):
             request, 'accounts/regist.html', context={
             'regist_form':regist_form,
             }
+    )
+
+def activate_user(request, token):
+    user_activate_token = UserActivateTokens.objects.activate_user_by_token(token)
+    return render(
+        request, 'accounts/activate_user.html'
     )
 
