@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from uuid import uuid4
 from datetime import datetime, timedelta
+from django.contrib.auth.models import UserManager
 
 class Users(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255)
@@ -17,6 +18,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
+    objects = UserManager()
 
     class Meta:
         db_table = 'users'
